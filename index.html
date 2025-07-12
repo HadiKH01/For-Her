@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Love Story 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(-45deg, #ffcdd2, #f8bbd0, #f48fb1, #f06292);
+      background-size: 500% 500%;
+      animation: bg 20s ease infinite;
+      font-family: 'Quicksand', sans-serif;
+      color: #fff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    @keyframes bg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px #fff;
+    }
+
+    input {
+      padding: 15px 25px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1.2rem;
+      text-align: center;
+      box-shadow: 0 0 10px #fff;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    button {
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 1rem;
+      border: none;
+      background: white;
+      color: #e91e63;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 20px #fff;
+      transition: 0.3s ease;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background: #ffe4ec;
+      transform: scale(1.05);
+    }
+
+    #story {
+      font-size: 1.5rem;
+      margin-top: 30px;
+      max-width: 700px;
+      padding: 0 20px;
+      text-shadow: 0 0 10px #fff;
+      min-height: 100px;
+    }
+
+    .heart {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: url('download.jpg') no-repeat center/contain;
+      animation: float 8s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+    }
+
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation: boom 1s ease-out forwards;
+    }
+
+    @keyframes boom {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(10); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>What's Your Name, My Love? 💗</h1>
+  <input type="text" id="nameInput" placeholder="Type your name..." autofocus />
+  <button onclick="startStory()">Start Our Love Story</button>
+
+  <div id="story"></div>
+  <button id="nextBtn" onclick="showNextLine()" style="display:none;">Next ❤️</button>
+
+  <div id="effects"></div>
+
+  <script>
+    const lines = [
+      "Hello, {name}. I’m so happy you’re here...",
+      "Since the day I met you, my world changed.",
+      "Your smile is the sunshine that lights my days.",
+      "Every moment with you feels like magic.",
+      "I never believed in fate, until I found you.",
+      "My heart whispers your name with every beat.",
+      "You are my today, my tomorrow, my forever.",
+      "I love you, {name}. Will you be mine forever?💖"
+    ];
+
+    let currentLine = 0;
+    let yourName = '';
+
+    function startStory() {
+      yourName = document.getElementById("nameInput").value.trim();
+      if (!yourName) return;
+
+      document.querySelector("h1").style.display = "none";
+      document.getElementById("nameInput").style.display = "none";
+      event.target.style.display = "none";
+      document.getElementById("nextBtn").style.display = "inline-block";
+      showNextLine();
+    }
+
+    function showNextLine() {
+      if (currentLine >= lines.length) return;
+
+      let storyText = lines[currentLine].replace(/{name}/g, yourName);
+      document.getElementById("story").textContent = storyText;
+      currentLine++;
+
+      if (currentLine === lines.length) {
+        launchFinalEffects();
+      }
+    }
+
+    function launchFinalEffects() {
+      for (let i = 0; i < 25; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = `${Math.random() * 100}vw`;
+        heart.style.animationDuration = `${4 + Math.random() * 4}s`;
+        document.getElementById("effects").appendChild(heart);
+      }
+
+      for (let i = 0; i < 20; i++) {
+        const fw = document.createElement("div");
+        fw.className = "firework";
+        fw.style.left = `${50 + (Math.random() * 20 - 10)}%`;
+        fw.style.top = `${40 + (Math.random() * 20 - 10)}%`;
+        document.body.appendChild(fw);
+        setTimeout(() => fw.remove(), 1200);
+      }
+    }
+  </script>
+
+</body>
+</html>
