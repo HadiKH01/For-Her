@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,12 +106,19 @@
 </head>
 <body>
 
-  <h1>What's Your Name?💗</h1>
+  <h1>What's Your Name, My Love? 💗</h1>
   <input type="text" id="nameInput" placeholder="Type your name..." autofocus />
   <button onclick="startStory()">Start Our Love Story</button>
 
   <div id="story"></div>
   <button id="nextBtn" onclick="showNextLine()" style="display:none;">Next ❤️</button>
+
+  <div id="questionArea" style="display:none; margin-top: 30px;">
+    <p style="font-size: 1.4rem;">Do you want to continue this love story with me? 💕</p>
+    <input type="text" id="answerInput" placeholder="Type Yes or No..." />
+    <button onclick="submitAnswer()">Submit 💌</button>
+    <p id="finalMessage" style="margin-top: 20px; font-size: 1.3rem;"></p>
+  </div>
 
   <div id="effects"></div>
 
@@ -151,6 +157,8 @@
 
       if (currentLine === lines.length) {
         launchFinalEffects();
+        document.getElementById("questionArea").style.display = "block";
+        document.getElementById("nextBtn").style.display = "none";
       }
     }
 
@@ -172,7 +180,21 @@
         setTimeout(() => fw.remove(), 1200);
       }
     }
+
+    function submitAnswer() {
+      const answer = document.getElementById("answerInput").value.toLowerCase().trim();
+      const finalMsg = document.getElementById("finalMessage");
+
+      if (answer === "yes") {
+        finalMsg.textContent = `My sweet ${yourName}, from this moment on, my soul dances with yours. 💞 Every heartbeat echoes your name, and every breath I take is a promise to love you more with each passing day. 🌹 Let's walk this journey hand in hand — forever, my love. ❤️`;
+      } else if (answer === "no") {
+        finalMsg.textContent = `Even if not now, my heart will always wait for you, ${yourName}. 💔`;
+      } else {
+        finalMsg.textContent = `Please type "Yes" or "No", my love 🌹`;
+      }
+    }
   </script>
 
 </body>
 </html>
+
